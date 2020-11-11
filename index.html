@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Biglietteria</title>
+  </head>
+  <body>
+    <div class="ticket-square">
+      <div class="ticket-text">
+        <h1>Benvenuto in Veneto Treni</h1>
+        <h2>Qui puoi calcolare la tua tariffa di viaggio</h2>
+        </br><p>Quanti chilometri devi percorrere?</p>
+      </div>
+      <div class="ticket-input">
+        <input type="text" id="input-km" name="km" value="" placeholder="Inserisci qui i km">
+      </div>
+      <div class="ticket-text">
+        <p>Quanti anni hai?</p>
+      </div>
+      <div class="ticket-input">
+        <input type="text" id="input-ages" name="ages" value="" placeholder="Inserisci qui la tua età">
+      </div>
+      <div class="ticket-button">
+        <button type="button" id="my_button" name="button">Calcola tariffa</button>
+      </div>
+      <div class="ticket-text">
+        <h3 id="price"></h3>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var km = document.getElementById("input-km").value;
+      var ages = document.getElementById("input-ages").value;
+      var kmStandard = km * 0.21;
+
+      document.getElementById("my_button").addEventListener("click", displayPrice);
+
+      function displayPrice() {
+        document.getElementById("price").innerHTML = "La tua tariffa è: " + kmStandard;
+      }
+    </script>
+  </body>
+</html>
