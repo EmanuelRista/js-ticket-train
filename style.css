@@ -40,3 +40,9 @@ button {
 h1 {
   color: green;
 }
+.discount {
+  font-size: 20px;
+  color: green;
+  font-weight: bold;
+  padding: 0.5rem;
+}

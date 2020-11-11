@@ -14,12 +14,14 @@
       </div>
       <div class="ticket-input">
         <input type="text" id="input-km" name="km" value="" placeholder="Inserisci qui i km">
+        <p id="nan-km"></p>
       </div>
       <div class="ticket-text">
         <p>Quanti anni hai?</p>
       </div>
       <div class="ticket-input">
         <input type="text" id="input-ages" name="ages" value="" placeholder="Inserisci qui la tua età">
+        <p id="nan-ages"></p>
       </div>
       <div class="ticket-button">
         <button type="button" id="my_button" name="button">Calcola tariffa</button>
@@ -28,17 +30,53 @@
         <h3 id="price"></h3>
       </div>
     </div>
+    <div class="ticket-square">
+      <p class="discount">Sei minorenne? Approfitta del nostro sconto 20% su tutte le tariffe!</p>
+      <p class="discount">Se invece hai più di 65 anni lo sconto è addirittura del 40%!</p>
+    </div>
 
     <script type="text/javascript">
-      var km = document.getElementById("input-km").value;
-      var ages = document.getElementById("input-ages").value;
-      var kmStandard = km * 0.21;
 
-      document.getElementById("my_button").addEventListener("click", displayPrice);
 
-      function displayPrice() {
-        document.getElementById("price").innerHTML = "La tua tariffa è: " + kmStandard;
-      }
+      document.getElementById("my_button").addEventListener("click", calcDisplayPrice);//una volta cliccato sul bottone si attiva la funzione displayPrice (che serve per visualizzare la tariffa e in più vorrei anche far si che l'input km venga resettato)
+
+      function calcDisplayPrice() {//ATT. le variabili vanno fissate dentro la funzione, altrimenti se vengono inizializzate all'inizio dello script, questa istruzione verrà eseguita immediatamente all'apertura della pagina, e in quel momento l'input avrà ovviamente contenuto vuoto
+        var km = document.getElementById("input-km").value;//fisso la variabile km, in questo caso km sarà uguale al value inserito in questo input
+        while (isNaN(km)) {
+          alert("Attenzione: devi inserire un numero nel campo dei km");
+          document.getElementById("input-km").value = "";
+          break
+        };
+        var ages = document.getElementById("input-ages").value;//fisso la variabile ages, in questo caso ages sarà uguale al value inserito in questo input
+        while(isNaN(ages)) {
+          alert("Attenzione: devi inserire un numero nel campo dell'età")
+          document.getElementById("input-ages").value = "";
+          break
+        };
+        var kmStandard = km * 0.21;//fisso la variabile kmStandard (che sarà la variabile km moltiplicato per 0.21, in questo caso ho ottenuto la tariffa del ticket
+        var kmOld = kmStandard * 0.6;
+        var kmYoung = kmStandard * 0.8;
+
+        if (isNaN(kmStandard)) {
+          document.getElementById("price").innerHTML = "Non abbiamo potuto calcolare la tua tariffa";
+        } else {
+          if (ages < 18) {
+            document.getElementById("price").innerHTML = "La tua tariffa è: " + kmYoung + " euro. Abbiamo applicato uno sconto del 20% per gli under 18";//fa apparire la tariffa
+            document.getElementById("input-km").value = "";//fa si che dopo aver fatto apparire la tariffa l'input dei km venga resettato
+            document.getElementById("input-ages").value = "";
+          } else if (ages > 65) {
+            document.getElementById("price").innerHTML = "La tua tariffa è: " + kmOld + " euro. Abbiamo applicato uno sconto del 40% per gli over 65";//fa apparire la tariffa
+            document.getElementById("input-km").value = "";//fa si che dopo aver fatto apparire la tariffa l'input dei km venga resettato
+            document.getElementById("input-ages").value = "";
+          } else {
+            document.getElementById("price").innerHTML = "La tua tariffa è: " + kmStandard + " euro.";//fa apparire la tariffa
+            document.getElementById("input-km").value = "";//fa si che dopo aver fatto apparire la tariffa l'input dei km venga resettato
+            document.getElementById("input-ages").value = "";
+          }
+
+        }
+      };
+
     </script>
   </body>
 </html>
